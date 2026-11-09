@@ -1,0 +1,7 @@
+{
+  "status": "rejected",
+  "candidate_model": "LogisticRegression",
+  "candidate_f1": 0.83705,
+  "production_f1": 0.841933,
+  "model_version": "v1"
+}

@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.mlflow/
+mlruns/
+mlflow/
+*.db
+.env
+.env.*
+!.env.example
+.DS_Store
+app/api/main_backup.py
+
+monitoring/dashboard_backup.py

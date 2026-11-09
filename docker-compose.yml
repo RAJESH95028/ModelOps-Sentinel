@@ -1,0 +1,31 @@
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.16.2
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow:/mlflow
+    command: >-
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+
+  api:
+    build: .
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mlflow
+    command: uvicorn app.api.main:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    command: streamlit run monitoring/dashboard.py --server.address 0.0.0.0 --server.port 8501
